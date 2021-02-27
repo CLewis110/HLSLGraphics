@@ -1,2 +1,2 @@
 # HLSLGraphics
- Learning/Experimenting with DirectX and HLSL
+Building/Learning/Experimenting with DirectX and HLSL Rendering Engine
