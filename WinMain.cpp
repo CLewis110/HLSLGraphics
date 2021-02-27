@@ -1,4 +1,20 @@
 #include <Windows.h>
+#include "WindowsMessageMap.h"
+
+//Close program if window is closed
+LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+	static WindowsMessageMap mp;
+	OutputDebugString(mp(msg, lParam, wParam).c_str());
+
+	switch (msg)
+	{
+	case WM_CLOSE:
+		PostQuitMessage(123);
+		break;
+	}
+	return DefWindowProc(hWnd, msg, wParam, lParam);
+}
 
 int CALLBACK WinMain(
 	HINSTANCE hInstance,
@@ -7,11 +23,12 @@ int CALLBACK WinMain(
 	int		nCmdShow)
 {
 	const auto pClassName = "hw3d";
+
 	//register window class
 	WNDCLASSEX wc = {0};
 	wc.cbSize = sizeof( wc );
 	wc.style = CS_OWNDC;
-	wc.lpfnWndProc = DefWindowProc;
+	wc.lpfnWndProc = WndProc;
 	wc.cbClsExtra = 0;
 	wc.cbWndExtra = 0;
 	wc.hInstance = nullptr;
@@ -32,6 +49,27 @@ int CALLBACK WinMain(
 		nullptr, nullptr, hInstance, nullptr
 	);
 
-	while (true);
+	//Show window
+	ShowWindow(hWnd, SW_SHOW);
+
+	//Message handling
+	MSG msg;
+	BOOL gResult;
+	while ((gResult = GetMessage(&msg, nullptr, 0, 0)) > 0)
+	{
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+	}
+
+
+	if (gResult == -1)
+	{
+		return -1;
+	}
+	else
+	{
+		return msg.wParam;
+	}
+
 	return 0;
 }
