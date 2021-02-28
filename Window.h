@@ -1,6 +1,7 @@
 #pragma once
 #include "MacrosWin.h"
 #include "Exception.h"
+#include "Keyboard.h"
 
 
 class Window
@@ -42,12 +43,14 @@ private:
 	static LRESULT CALLBACK HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
 	static LRESULT CALLBACK HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
 	LRESULT HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
+public:
+	Keyboard kbd;
 private:
 	int width;
 	int height;
 	HWND hWnd;
 };
 
-#define CHWND_EXCEPT(hr) Window::Exception(__LINE__,__FILE__,hr)
-#define CHWND_LAST_EXCEPT() Window::Exception(__LINE__,__FILE__,GetLastError())
+#define CHWND_EXCEPT(hr) Window::CException(__LINE__,__FILE__,hr)
+#define CHWND_LAST_EXCEPT() Window::CException(__LINE__,__FILE__,GetLastError())
 

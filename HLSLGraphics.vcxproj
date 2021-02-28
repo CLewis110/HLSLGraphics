@@ -20,15 +20,24 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Exception.cpp" />
+    <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="WindowsMessageMap.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Exception.h" />
+    <ClInclude Include="Keyboard.h" />
     <ClInclude Include="MacrosWin.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="WindowsMessageMap.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="HLSLGraphics.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon1.ico" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
