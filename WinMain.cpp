@@ -1,5 +1,5 @@
 #include "Window.h"
-
+#include <sstream>
 
 
 int CALLBACK WinMain(
@@ -19,9 +19,24 @@ int CALLBACK WinMain(
 		{
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
-			if (wnd.kbd.KeyIsPressed(VK_MENU))
+
+			//Mouse testing
+			while (!wnd.mouse.IsEmpty())
 			{
-				MessageBox(nullptr, "Something Happened!", "The ALT Key Was Pressed", MB_OK | MB_ICONEXCLAMATION);
+				const auto e = wnd.mouse.Read();
+				switch (e.GetType())
+				{
+				case Mouse::Event::Type::Leave:
+					wnd.SetTitle("Gone!");
+					break;
+				case Mouse::Event::Type::Move:
+				{
+					std::ostringstream oss; 
+					oss << "Mouse Position: (" << e.GetPosX() << ", " << e.GetPosY() << ")";
+					wnd.SetTitle(oss.str());
+				}
+				break;
+				}
 			}
 		}
 
